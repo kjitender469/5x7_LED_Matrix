@@ -1,1 +1,1 @@
-# 7x5_led_matrix
+# 5x7_led_matrix
