@@ -1,3 +1,4 @@
+
 /************************** 5x7 LED Dot Matrix **********************/
 /*
              14 13 12 11 10  9  8
@@ -40,51 +41,35 @@
   email  : kjitender469@gmail.com
 */
 
-#include <Arduino.h>
+#include "5x7_LED_matrix.h"
 
-//#define debug
+char msg[36] = {'A','B','C','D','E','F','G','H','I','J','K','L',
+                'M','N','O','P','Q','R','S','T','U','V','W','X',
+                'Y','Z','0','1','2','3','4','5','6','7','8','9'};
 
-/*
-    This function make all the LEDs to glow.
-*/
-void glow_all();
+void setup()
+{
+  Serial.begin(9600);
+  for (int i = 2; i < 14; i++)
+  {
+    pinMode(i, OUTPUT);
+  }
+  Serial.println("Setup Completed");
+  glow_all();
+  Serial.println("glow all");
+  delay(1000);
+  off_all();
+  Serial.println("off all");
+  delay(2000);
+}
 
-/*
-    This function make all the LEDs to off.
-*/
-void off_all();
-
-/*
-    Pass the index no of the corresponding led from led matrix to make it glow. 
-    The function takes integer no as an argument and will make that Led to glow.
- */
-void glow_led(int ledNumber);
-
-/*
-    Pass the index no of the corresponding led from led matrix to make it off. 
-    The function takes integer no as an argument and will make that Led off.
-*/
-void off_led(int ledNumber);
-
-/*
-
-*/
-void print_pattern(int print_array[7][5]);
-
-/*
-
-*/
-void disp_char(char c);
-
-/*
-
-*/
-void disp_custom_char(int *arr, int size);
-
-/*
-
-*/
-void glow_led_scroll(int);
-void off_led_scroll(int);
-void glow_matrix_scroll(char);
-void disp_char_scroll(char c);
+void loop()
+{
+  
+//  for(int i=0; i<35; i++)
+//  {
+//    disp_char(msg[i]);
+//  }
+  disp_char('F');
+  //delay(200);
+}

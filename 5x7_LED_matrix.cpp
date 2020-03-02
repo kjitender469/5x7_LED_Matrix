@@ -17,7 +17,7 @@
               |  |  |  |  |  |  |
               1  2  3  4  5  6  7
 
-  Connections : 
+  Connections :
 
         Arduino         5x7 LED Matrix
           2      -->        2
@@ -34,7 +34,7 @@
           13     -->        13
 
   LED Number on 5x7 LED Matix. Used to Access individual LED if needed.
-  
+
       { 1, 2, 3, 4, 5},
       { 6, 7, 8, 9,10},
       {11,12,13,14,15},
@@ -48,55 +48,67 @@
 
   Author : Jitender Kumar
   email  : kjitender469@gmail.com
- 
+
 */
 
 #include <Arduino.h>
 #include "5x7_LED_matrix.h";
 
-int char_swastik[21] = {1,3,4,5,6,8,11,13,16,17,18,19,20,23,25,28,30,31,32,33,35};
-int char_A[18] = {2,3,4,6,10,11,15,16,17,18,19,20,21,25,26,30,31,35};
-int char_B[20] = {1,2,3,4,6,10,11,15,16,17,18,19,21,25,26,30,31,32,33,34};
-int char_C[13] = {2,3,4,6,10,11,16,21,26,30,32,33,34};
-int char_D[18] = {1,2,3,4,6,10,11,15,16,20,21,25,26,30,31,32,33,34};
-int char_E[19] = {1,2,3,4,5,6,11,16,17,18,19,20,21,26,31,32,33,34,35};
-int char_F[15] = {1,2,3,4,5,6,11,16,17,18,19,20,21,26,31};
-int char_G[16] = {2,3,4,5,6,11,16,18,19,21,25,26,30,32,33,34};
-int char_H[17] = {1,5,6,10,11,15,16,17,18,19,20,21,25,26,30,31,35};
-int char_I[15] = {1,2,3,4,5,8,13,18,23,28,31,32,33,34,35};
-int char_J[14] = {1,2,3,4,5,8,13,18,23,28,33,32,26,21};
-int char_K[14] = {1,5,6,9,11,13,16,17,21,23,26,29,31,35};
-int char_L[11] = {1,6,11,16,21,26,31,32,33,34,35};
-int char_M[18] = {1,2,4,5,6,8,10,11,13,15,16,20,21,25,26,30,31,35};
-int char_N[13] = {6,10,11,12,15,16,18,20,21,24,25,26,30};
-int char_O[16] = {2,3,4,6,10,11,15,16,20,21,25,26,30,32,33,34};
-int char_P[14] = {2,3,4,6,10,11,15,16,17,18,19,21,26,31};
-int char_Q[15] = {7,8,9,11,15,16,20,21,23,25,26,29,32,33,35};
-int char_R[17] = {2,3,4,6,10,11,15,16,17,18,19,21,23,26,29,31,35};
-int char_S[15] = {2,3,4,6,10,11,17,18,19,25,26,30,32,33,34};
-int char_T[11] = {1,2,3,4,5,8,13,18,23,28,33};
-int char_U[15] = {1,5,6,10,11,15,16,20,21,25,26,30,32,33,34};
-int char_V[13] = {1,5,6,10,11,15,16,20,21,25,27,29,33};
-int char_W[15] = {6,10,11,15,16,18,20,21,23,25,26,28,30,32,34};
-int char_X[13] = {1,5,6,10,12,14,18,22,24,26,30,31,35};
-int char_Y[10] = {1,5,6,10,12,14,18,23,28,33};
-int char_Z[15] = {1,2,3,4,5,10,14,18,22,26,31,32,33,34,35};
+//#define enable_disp_char_scroll
+#define dataInFlash
 
-int char_0[] = {};
-int char_1[] = {};
-int char_2[] = {};
-int char_3[] = {};
-int char_4[] = {};
-int char_5[] = {};
-int char_6[] = {};
-int char_7[] = {};
-int char_8[] = {};
-int char_9[] = {};
-int char_plus[9] = {8,13,18,23,28,16,17,19,20};
+#define dataInRAM
 
-int char_err[] = {};
+#ifdef dataInFlash
+  const char data_A[] PROGMEM = {"00100010101000111111100011000110001"};
+  const char data_B[] PROGMEM = {"11110100011000111110100011000111110"};
+  const char data_C[] PROGMEM = {"01110100011000010000100001000101110"};
+  const char data_D[] PROGMEM = {"11110100011000110001100011000111110"};
+  const char data_E[] PROGMEM = {"11111100001000011111100001000011111"};
+  const char data_F[] PROGMEM = {"11111100001000011111100001000010000"};
+  const char data_G[] PROGMEM = {"01110100011000010110100011000101110"};
+  const char data_H[] PROGMEM = {"10001100011000111111100011000110001"};
+  const char data_I[] PROGMEM = {"11111001000010000100001000010011111"};
+  const char data_J[] PROGMEM = {"11111001000010000100101001010001100"};
+  const char data_K[] PROGMEM = {"10001100101010011000101001001010001"};
+  const char data_L[] PROGMEM = {"10000100001000010000100001000011111"};
+  const char data_M[] PROGMEM = {"10001110111010110001100011000110001"};
+  const char data_N[] PROGMEM = {"10001100011100110101100111000110001"};
+  const char data_O[] PROGMEM = {"01110100011000110001100011000101110"};
+  const char data_P[] PROGMEM = {"11110100011000111110100001000010000"};
+  const char data_Q[] PROGMEM = {"01110100011000110001100011001101110"};
+  const char data_R[] PROGMEM = {"11110100011000111110101001001010001"};
+  const char data_S[] PROGMEM = {"01110100011000001110000011000101110"};
+  const char data_T[] PROGMEM = {"11111001000010000100001000010000100"};
+  const char data_U[] PROGMEM = {"10001100011000110001100011000101110"};
+  const char data_V[] PROGMEM = {"10001100011000110001100010101000100"};
+  const char data_W[] PROGMEM = {"10001100011000110001101011010101010"};
+  const char data_X[] PROGMEM = {"10001100010101000100010101000110001"};
+  const char data_Y[] PROGMEM = {"10001100010101000100001000010000100"};
+  const char data_Z[] PROGMEM = {"11111000010001000100010001000011111"};
+  const char data_0[] PROGMEM = {"01110100011000110001100011000101110"};
+  const char data_1[] PROGMEM = {"00100011000010000100001000010001110"};
+  const char data_2[] PROGMEM = {"01110100010001000100010001000011110"};
+  const char data_3[] PROGMEM = {"11110000010000111110000010000111110"};
+  const char data_4[] PROGMEM = {"10001100011000111111000010000100001"};
+  const char data_5[] PROGMEM = {"01111100001000001111000010000111111"};
+  const char data_6[] PROGMEM = {"01111100001000011110100011000101110"};
+  const char data_7[] PROGMEM = {"11111000010000100010001000100010000"};
+  //const char data_8[] PROGMEM = {"11111100011000111111100011000111111"};
+  const char data_8[] PROGMEM = {"01110100011000101110100011000101110"};
+  const char data_9[] PROGMEM = {"11111100011000111111000010000111111"};
+  
+  const char *const data_table[] PROGMEM = {data_A, data_B, data_C, data_D, data_E, data_F,
+                                            data_G, data_H, data_I, data_J, data_K, data_L,
+                                            data_M, data_N, data_O, data_P, data_Q, data_R,
+                                            data_S, data_T, data_U, data_V, data_W, data_X,
+                                            data_Y, data_Z, data_0, data_1, data_2, data_3,
+                                            data_4, data_5, data_6, data_7, data_8, data_9
+                                           };
+#endif
 
-int A[7][5] = { 
+#ifdef dataInRAM
+const int A[7][5]  = {
   {0, 0, 1, 0, 0},
   {0, 1, 0, 1, 0},
   {1, 0, 0, 0, 1},
@@ -106,7 +118,7 @@ int A[7][5] = {
   {1, 0, 0, 0, 1}
 };
 
-int B[7][5] = { 
+const int B[7][5]  = {
   {1, 1, 1, 1, 0},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
@@ -116,7 +128,7 @@ int B[7][5] = {
   {1, 1, 1, 1, 0}
 };
 
-int C[7][5] = { 
+const int C[7][5]  = {
   {0, 1, 1, 1, 0},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 0},
@@ -126,7 +138,7 @@ int C[7][5] = {
   {0, 1, 1, 1, 0}
 };
 
-int D[7][5] = { 
+const int D[7][5]  = {
   {1, 1, 1, 1, 0},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
@@ -136,7 +148,7 @@ int D[7][5] = {
   {1, 1, 1, 1, 0}
 };
 
-int E[7][5] = { 
+const int E[7][5]  = {
   {1, 1, 1, 1, 1},
   {1, 0, 0, 0, 0},
   {1, 0, 0, 0, 0},
@@ -146,17 +158,17 @@ int E[7][5] = {
   {1, 1, 1, 1, 1}
 };
 
-int F[7][5] = { 
+const int F[7][5]  = {
   {1, 1, 1, 1, 1},
   {1, 0, 0, 0, 0},
   {1, 0, 0, 0, 0},
   {1, 1, 1, 1, 1},
   {1, 0, 0, 0, 0},
-  {1, 0, 0, 0, 1},
+  {1, 0, 0, 0, 0},
   {1, 0, 0, 0, 0}
 };
 
-int G[7][5] = { 
+const int G[7][5] = {
   {0, 1, 1, 1, 0},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 0},
@@ -166,7 +178,7 @@ int G[7][5] = {
   {0, 1, 1, 1, 0}
 };
 
-int H[7][5] = { 
+const int H[7][5]  = {
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
@@ -176,7 +188,7 @@ int H[7][5] = {
   {1, 0, 0, 0, 1}
 };
 
-int I[7][5] = { 
+const int I[7][5]  = {
   {1, 1, 1, 1, 1},
   {0, 0, 1, 0, 0},
   {0, 0, 1, 0, 0},
@@ -186,7 +198,7 @@ int I[7][5] = {
   {1, 1, 1, 1, 1}
 };
 
-int J[7][5] = { 
+const int J[7][5]  = {
   {1, 1, 1, 1, 1},
   {0, 0, 1, 0, 0},
   {0, 0, 1, 0, 0},
@@ -196,7 +208,7 @@ int J[7][5] = {
   {0, 1, 1, 0, 0}
 };
 
-int K[7][5] = { 
+const int K[7][5]  = {
   {1, 0, 0, 0, 1},
   {1, 0, 0, 1, 0},
   {1, 0, 1, 0, 0},
@@ -206,7 +218,7 @@ int K[7][5] = {
   {1, 0, 0, 0, 1}
 };
 
-int L[7][5] = { 
+const int L[7][5] = {
   {1, 0, 0, 0, 0},
   {1, 0, 0, 0, 0},
   {1, 0, 0, 0, 0},
@@ -216,7 +228,7 @@ int L[7][5] = {
   {1, 1, 1, 1, 1}
 };
 
-int M[7][5] = { 
+const int M[7][5]  = {
   {1, 0, 0, 0, 1},
   {1, 1, 0, 1, 1},
   {1, 0, 1, 0, 1},
@@ -226,7 +238,7 @@ int M[7][5] = {
   {1, 0, 0, 0, 1}
 };
 
-int N[7][5] = { 
+const int N[7][5]  = {
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
   {1, 1, 0, 0, 1},
@@ -236,7 +248,7 @@ int N[7][5] = {
   {1, 0, 0, 0, 1}
 };
 
-int O[7][5] = { 
+const int O[7][5]  = {
   {0, 1, 1, 1, 0},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
@@ -246,7 +258,7 @@ int O[7][5] = {
   {0, 1, 1, 1, 0}
 };
 
-int P[7][5] = { 
+const int P[7][5]  = {
   {1, 1, 1, 1, 0},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
@@ -256,7 +268,7 @@ int P[7][5] = {
   {1, 0, 0, 0, 0}
 };
 
-int Q[7][5] = { 
+const int Q[7][5]  = {
   {0, 1, 1, 1, 0},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
@@ -266,7 +278,7 @@ int Q[7][5] = {
   {0, 1, 1, 1, 0}
 };
 
-int R[7][5] = { 
+const int R[7][5]  = {
   {1, 1, 1, 1, 0},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
@@ -276,7 +288,7 @@ int R[7][5] = {
   {1, 0, 0, 0, 1}
 };
 
-int S[7][5] = { 
+const int S[7][5]  = {
   {0, 1, 1, 1, 0},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 0},
@@ -286,7 +298,7 @@ int S[7][5] = {
   {0, 1, 1, 1, 0}
 };
 
-int T[7][5] = { 
+const int T[7][5]  = {
   {1, 1, 1, 1, 1},
   {0, 0, 1, 0, 0},
   {0, 0, 1, 0, 0},
@@ -296,7 +308,7 @@ int T[7][5] = {
   {0, 0, 1, 0, 0}
 };
 
-int U[7][5] = { 
+const int U[7][5]  = {
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
@@ -306,7 +318,7 @@ int U[7][5] = {
   {0, 1, 1, 1, 0}
 };
 
-int V[7][5] = { 
+const int V[7][5]  = {
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
@@ -316,7 +328,7 @@ int V[7][5] = {
   {0, 0, 1, 0, 0}
 };
 
-int W[7][5] = { 
+const int W[7][5]  = {
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
@@ -326,7 +338,7 @@ int W[7][5] = {
   {0, 1, 0, 1, 0}
 };
 
-int X[7][5] = { 
+const int X[7][5]  = {
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
   {0, 1, 0, 1, 0},
@@ -336,7 +348,7 @@ int X[7][5] = {
   {1, 0, 0, 0, 1}
 };
 
-int Y[7][5] = { 
+const int Y[7][5]  = {
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
   {0, 1, 0, 1, 0},
@@ -346,7 +358,7 @@ int Y[7][5] = {
   {0, 0, 1, 0, 0}
 };
 
-int Z[7][5] = { 
+const int Z[7][5]  = {
   {1, 1, 1, 1, 1},
   {0, 0, 0, 0, 1},
   {0, 0, 0, 1, 0},
@@ -356,7 +368,7 @@ int Z[7][5] = {
   {1, 1, 1, 1, 1}
 };
 
-int m_char_0[7][5] = { 
+const int m_char_0[7][5]  = {
   {0, 1, 1, 1, 0},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
@@ -366,7 +378,7 @@ int m_char_0[7][5] = {
   {0, 1, 1, 1, 0}
 };
 
-int m_char_1[7][5] = { 
+const int m_char_1[7][5]  = {
   {0, 0, 1, 0, 0},
   {0, 1, 1, 0, 0},
   {0, 0, 1, 0, 0},
@@ -376,7 +388,7 @@ int m_char_1[7][5] = {
   {0, 1, 1, 1, 0}
 };
 
-int m_char_2[7][5] = { 
+const int m_char_2[7][5]  = {
   {0, 1, 1, 1, 0},
   {1, 0, 0, 0, 1},
   {0, 0, 0, 1, 0},
@@ -386,7 +398,7 @@ int m_char_2[7][5] = {
   {1, 1, 1, 1, 0}
 };
 
-int m_char_3[7][5] = { 
+const int m_char_3[7][5]  = {
   {1, 1, 1, 1, 0},
   {0, 0, 0, 0, 1},
   {0, 0, 0, 0, 1},
@@ -396,7 +408,7 @@ int m_char_3[7][5] = {
   {1, 1, 1, 1, 0}
 };
 
-int m_char_4[7][5] = { 
+const int m_char_4[7][5]  = {
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
@@ -406,7 +418,7 @@ int m_char_4[7][5] = {
   {0, 0, 0, 0, 1}
 };
 
-int m_char_5[7][5] = { 
+const int m_char_5[7][5]  = {
   {0, 1, 1, 1, 1},
   {1, 0, 0, 0, 0},
   {1, 0, 0, 0, 0},
@@ -416,7 +428,7 @@ int m_char_5[7][5] = {
   {1, 1, 1, 1, 1}
 };
 
-int m_char_6[7][5] = { 
+int m_char_6[7][5]  = {
   {0, 1, 1, 1, 1},
   {1, 0, 0, 0, 0},
   {1, 0, 0, 0, 0},
@@ -426,7 +438,7 @@ int m_char_6[7][5] = {
   {0, 1, 1, 1, 0}
 };
 
-int m_char_7[7][5] = { 
+int m_char_7[7][5]  = {
   {1, 1, 1, 1, 1},
   {0, 0, 0, 0, 1},
   {0, 0, 0, 0, 1},
@@ -436,17 +448,17 @@ int m_char_7[7][5] = {
   {1, 0, 0, 0, 0}
 };
 
-int m_char_8[7][5] = { 
-  {1, 1, 1, 1, 1},
+int m_char_8[7][5]  = {
+  {0, 1, 1, 1, 0},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
-  {1, 1, 1, 1, 1},
+  {0, 1, 1, 1, 0},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
-  {1, 1, 1, 1, 1}
+  {0, 1, 1, 1, 0}
 };
 
-int m_char_9[7][5] = { 
+int m_char_9[7][5]  = {
   {1, 1, 1, 1, 1},
   {1, 0, 0, 0, 1},
   {1, 0, 0, 0, 1},
@@ -455,1807 +467,1835 @@ int m_char_9[7][5] = {
   {0, 0, 0, 0, 1},
   {1, 1, 1, 1, 1}
 };
+#endif
 
 void glow_all()
 {
-    #ifdef debug
-        Serial.println("glow all LEDs.");
-    #endif
-    digitalWrite(12, LOW);    // Dot Matrix pin no 1
-    digitalWrite(11, LOW);    // Dot Matrix pin no 14
-    digitalWrite(9, LOW);
-    digitalWrite(8, LOW);
-    digitalWrite(5, LOW);
-    digitalWrite(7, LOW);
-    digitalWrite(2, LOW);
-    digitalWrite(13, HIGH);
-    digitalWrite(3, HIGH);
-    digitalWrite(4, HIGH);
-    digitalWrite(10, HIGH);
-    digitalWrite(6, HIGH);
+#ifdef debug
+  Serial.println("glow all LEDs.");
+#endif
+  digitalWrite(12, LOW);    // Dot Matrix pin no 1
+  digitalWrite(11, LOW);    // Dot Matrix pin no 14
+  digitalWrite(9, LOW);
+  digitalWrite(8, LOW);
+  digitalWrite(5, LOW);
+  digitalWrite(7, LOW);
+  digitalWrite(2, LOW);
+  digitalWrite(13, HIGH);
+  digitalWrite(3, HIGH);
+  digitalWrite(4, HIGH);
+  digitalWrite(10, HIGH);
+  digitalWrite(6, HIGH);
 }
 
 void off_all()
 {
-    #ifdef debug
-        Serial.println("off all LEDs.");
-    #endif
-    digitalWrite(12, LOW);    // Dot Matrix pin no 1
-    digitalWrite(11, LOW);    // Dot Matrix pin no 14
-    digitalWrite(9, LOW);
-    digitalWrite(8, LOW);
-    digitalWrite(5, LOW);
-    digitalWrite(7, LOW);
-    digitalWrite(2, LOW);
-    digitalWrite(13, LOW);
-    digitalWrite(3, LOW);
-    digitalWrite(4, LOW);
-    digitalWrite(10, LOW);
-    digitalWrite(6, LOW);
+#ifdef debug
+  Serial.println("off all LEDs.");
+#endif
+  digitalWrite(12, LOW);    // Dot Matrix pin no 1
+  digitalWrite(11, LOW);    // Dot Matrix pin no 14
+  digitalWrite(9, LOW);
+  digitalWrite(8, LOW);
+  digitalWrite(5, LOW);
+  digitalWrite(7, LOW);
+  digitalWrite(2, LOW);
+  digitalWrite(13, LOW);
+  digitalWrite(3, LOW);
+  digitalWrite(4, LOW);
+  digitalWrite(10, LOW);
+  digitalWrite(6, LOW);
 }
 
 void glow_led(int ledNumber)
 {
-    switch(ledNumber)
-    {
-        case 1:
-            #ifdef debug
-                Serial.print("Case : ");
-                Serial.println(ledNumber);
-            #endif
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, HIGH);
-            break;
-        case 2:
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, HIGH);
-            break;
-        case 3:
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, HIGH);
-            break;
-        case 4:
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, HIGH);
-            break;
-        case 5:
-            digitalWrite(9, LOW);    
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, HIGH);
-            break;
-        case 6:    
-            digitalWrite(9, HIGH);
-            //off_all();
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, HIGH);
-            break;
-        case 7:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, HIGH);
-            break;
-        case 8:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, HIGH);
-            break;
-        case 9:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, HIGH);
-            break;
-        case 10:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, HIGH);
-            break;
-        case 11:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, HIGH);
-            break;
-        case 12:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, HIGH);
-            break;
-        case 13:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, HIGH);
-            break;
-        case 14:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, HIGH);
-            break;
-        case 15:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, HIGH);
-            break;
-        case 16:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, HIGH);
-            break;
-        case 17:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, HIGH);
-            break;
-        case 18:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, HIGH);
-            break;
-        case 19:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, HIGH);
-            break;
-        case 20:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, HIGH);
-            break;
-        case 21:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, HIGH);
-            break;
-        case 22:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, HIGH);
-            break;
-        case 23:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, HIGH);
-            break;
-        case 24:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, HIGH);
-            break;
-        case 25:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, HIGH);
-            break;
-        case 26:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, HIGH);
-            break;
-        case 27:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, HIGH);
-            break;
-        case 28:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, HIGH);
-            break;
-        case 29:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, HIGH);
-            break;
-        case 30:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, HIGH);
-            break;
-        case 31:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(13, HIGH);
-            break;
-        case 32:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(3, HIGH);
-            break;
-        case 33:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(4, HIGH);
-            break;
-        case 34:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(10, HIGH);
-            break;
-        case 35:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(6, HIGH);
-            break;
-        default:
-          break;
-    }
-}
-
-void off_led(int ledNumber)
-{
-    switch(ledNumber)
-    {
-        case 1:
-            #ifdef debug
-                Serial.print("Case : ");
-                Serial.println(ledNumber);
-            #endif
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, LOW);
-            break;
-        case 2:
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, LOW);
-            break;
-        case 3:
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, LOW);
-            break;
-        case 4:
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, LOW);
-            break;
-        case 5:
-            digitalWrite(9, LOW);    
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, LOW);
-            break;
-        case 6:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, LOW);
-            break;
-        case 7:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, LOW);
-            break;
-        case 8:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, LOW);
-            break;
-        case 9:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, LOW);
-            break;
-        case 10:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, LOW);
-            break;
-        case 11:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, LOW);
-            break;
-        case 12:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, LOW);
-            break;
-        case 13:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, LOW);
-            break;
-        case 14:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, LOW);
-            break;
-        case 15:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, LOW);
-            break;
-        case 16:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, LOW);
-            break;
-        case 17:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, LOW);
-            break;
-        case 18:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, LOW);
-            break;
-        case 19:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, LOW);
-            break;
-        case 20:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, LOW);
-            break;
-        case 21:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, LOW);
-            break;
-        case 22:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, LOW);
-            break;
-        case 23:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, LOW);
-            break;
-        case 24:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, LOW);
-            break;
-        case 25:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, LOW);
-            break;
-        case 26:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, LOW);
-            break;
-        case 27:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, LOW);
-            break;
-        case 28:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, LOW);
-            break;
-        case 29:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, LOW);
-            break;
-        case 30:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, LOW);
-            break;
-        case 31:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(13, LOW);
-            break;
-        case 32:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(3, LOW);
-            break;
-        case 33:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(4, LOW);
-            break;
-        case 34:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(10, LOW);
-            break;
-        case 35:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(6, LOW);
-            break;
-        default:
-          break;
-    }
-}
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-void glow_led_scroll(int ledNumber)
-{
-    switch(ledNumber)
-    {
-        case 6:
-            #ifdef debug
-                Serial.print("Case : ");
-                Serial.println(ledNumber);
-            #endif
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, HIGH);
-            break;
-        case 7:
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, HIGH);
-            break;
-        case 8:
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, HIGH);
-            break;
-        case 9:
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, HIGH);
-            break;
-        case 10:
-            digitalWrite(9, LOW);    
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, HIGH);
-            break;
-        case 21:    
-            digitalWrite(9, HIGH);
-            //off_all();
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, HIGH);
-            break;
-        case 22:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, HIGH);
-            break;
-        case 23:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, HIGH);
-            break;
-        case 24:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, HIGH);
-            break;
-        case 25:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, HIGH);
-            break;
-        case 36:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, HIGH);
-            break;
-        case 37:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, HIGH);
-            break;
-        case 38:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, HIGH);
-            break;
-        case 39:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, HIGH);
-            break;
-        case 40:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, HIGH);
-            break;
-        case 51:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, HIGH);
-            break;
-        case 52:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, HIGH);
-            break;
-        case 53:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, HIGH);
-            break;
-        case 54:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, HIGH);
-            break;
-        case 55:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, HIGH);
-            break;
-        case 66:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, HIGH);
-            break;
-        case 67:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, HIGH);
-            break;
-        case 68:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, HIGH);
-            break;
-        case 69:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, HIGH);
-            break;
-        case 70:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, HIGH);
-            break;
-        case 81:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, HIGH);
-            break;
-        case 82:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, HIGH);
-            break;
-        case 83:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, HIGH);
-            break;
-        case 84:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, HIGH);
-            break;
-        case 85:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, HIGH);
-            break;
-        case 96:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(13, HIGH);
-            break;
-        case 97:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(3, HIGH);
-            break;
-        case 98:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(4, HIGH);
-            break;
-        case 99:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(10, HIGH);
-            break;
-        case 100:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(6, HIGH);
-            break;
-        default:
-          break;
-    }
-}
-
-void off_led_scroll(int ledNumber)
-{
-    switch(ledNumber)
-    {
-        case 6:
-            #ifdef debug
-                Serial.print("Case : ");
-                Serial.println(ledNumber);
-            #endif
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, LOW);
-            break;
-        case 7:
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, LOW);
-            break;
-        case 8:
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, LOW);
-            break;
-        case 9:
-            digitalWrite(9, LOW);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, LOW);
-            break;
-        case 10:
-            digitalWrite(9, LOW);    
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, LOW);
-            break;
-        case 21:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, LOW);
-            break;
-        case 22:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, LOW);
-            break;
-        case 23:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, LOW);
-            break;
-        case 24:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, LOW);
-            break;
-        case 25:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, LOW);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, LOW);
-            break;
-        case 36:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, LOW);
-            break;
-        case 37:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, LOW);
-            break;
-        case 38:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, LOW);
-            break;
-        case 39:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, LOW);
-            break;
-        case 40:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, LOW);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, LOW);
-            break;
-        case 51:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, LOW);
-            break;
-        case 52:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, LOW);
-            break;
-        case 53:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, LOW);
-            break;
-        case 54:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, LOW);
-            break;
-        case 55:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, LOW);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, LOW);
-            break;
-        case 66:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, LOW);
-            break;
-        case 67:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, LOW);
-            break;
-        case 68:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, LOW);
-            break;
-        case 69:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, LOW);
-            break;
-        case 70:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, LOW);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, LOW);
-            break;
-        case 81:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(13, LOW);
-            break;
-        case 82:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(3, LOW);
-            break;
-        case 83:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(4, LOW);
-            break;
-        case 84:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(10, LOW);
-            break;
-        case 85:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, LOW);
-            digitalWrite(2, HIGH);
-
-            digitalWrite(6, LOW);
-            break;
-        case 96:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(13, LOW);
-            break;
-        case 97:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(3, LOW);
-            break;
-        case 98:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(4, LOW);
-            break;
-        case 99:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(10, LOW);
-            break;
-        case 100:    
-            digitalWrite(9, HIGH);
-            digitalWrite(11, HIGH);
-            digitalWrite(8, HIGH);
-            digitalWrite(5, HIGH);
-            digitalWrite(12, HIGH);
-            digitalWrite(7, HIGH);
-            digitalWrite(2, LOW);
-
-            digitalWrite(6, LOW);
-            break;
-        default:
-          break;
-    }
-}
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-void disp_char(char c)
-{
-  switch(c)
+  switch (ledNumber)
   {
-    case 'A':
-      print_pattern(char_A, sizeof(char_A));
-      break; 
-    case 'B':
-      print_pattern(char_B, sizeof(char_B));
+    case 1:
+#ifdef debug
+      Serial.print("Case : ");
+      Serial.println(ledNumber);
+#endif
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, HIGH);
       break;
-    case 'C':
-      print_pattern(char_C, sizeof(char_C));
+    case 2:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, HIGH);
       break;
-    case 'D':
-      print_pattern(char_D, sizeof(char_D));
+    case 3:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, HIGH);
       break;
-    case 'E':
-      print_pattern(char_E, sizeof(char_E));
+    case 4:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, HIGH);
       break;
-    case 'F':
-      print_pattern(char_F, sizeof(char_F));
+    case 5:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, HIGH);
       break;
-    case 'G':
-      print_pattern(char_G, sizeof(char_G));
+    case 6:
+      digitalWrite(9, HIGH);
+      //off_all();
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, HIGH);
       break;
-    case 'H':
-      print_pattern(char_H, sizeof(char_H));
+    case 7:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, HIGH);
       break;
-    case 'I':
-      print_pattern(char_I, sizeof(char_I));
+    case 8:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, HIGH);
       break;
-    case 'J':
-      print_pattern(char_J, sizeof(char_J));
+    case 9:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, HIGH);
       break;
-    case 'K':
-      print_pattern(char_K, sizeof(char_K));
+    case 10:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, HIGH);
       break;
-    case 'L':
-      print_pattern(char_L, sizeof(char_L));
+    case 11:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, HIGH);
       break;
-    case 'M':
-      print_pattern(char_M, sizeof(char_M));
+    case 12:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, HIGH);
       break;
-    case 'N':
-      print_pattern(char_N, sizeof(char_N));
+    case 13:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, HIGH);
       break;
-    case 'O':
-      print_pattern(char_O, sizeof(char_O));
+    case 14:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, HIGH);
       break;
-    case 'P':
-      print_pattern(char_P, sizeof(char_P));
+    case 15:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, HIGH);
       break;
-    case 'Q':
-      print_pattern(char_Q, sizeof(char_Q));
+    case 16:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, HIGH);
       break;
-    case 'R':
-      print_pattern(char_R, sizeof(char_R));
+    case 17:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, HIGH);
       break;
-    case 'S':
-      print_pattern(char_S, sizeof(char_S));
+    case 18:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, HIGH);
       break;
-    case 'T':
-      print_pattern(char_T, sizeof(char_T));
+    case 19:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, HIGH);
       break;
-    case 'U':
-      print_pattern(char_U, sizeof(char_U));
+    case 20:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, HIGH);
       break;
-    case 'V':
-      print_pattern(char_V, sizeof(char_V));
+    case 21:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, HIGH);
       break;
-    case 'W':
-      print_pattern(char_W, sizeof(char_W));
+    case 22:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, HIGH);
       break;
-    case 'X':
-      print_pattern(char_X, sizeof(char_X));
+    case 23:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, HIGH);
       break;
-    case 'Y':
-      print_pattern(char_Y, sizeof(char_Y));
+    case 24:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, HIGH);
       break;
-    case 'Z':
-      print_pattern(char_Z, sizeof(char_Z));
+    case 25:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, HIGH);
       break;
-    case '0':
-      print_pattern(char_0, sizeof(char_0));
+    case 26:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, HIGH);
       break;
-    case '1':
-      print_pattern(char_1, sizeof(char_1));
+    case 27:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, HIGH);
       break;
-    case '2':
-      print_pattern(char_2, sizeof(char_2));
+    case 28:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, HIGH);
       break;
-    case '3':
-      print_pattern(char_3, sizeof(char_3));
+    case 29:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, HIGH);
       break;
-    case '4':
-      print_pattern(char_4, sizeof(char_4));
+    case 30:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, HIGH);
       break;
-    case '5':
-      print_pattern(char_5, sizeof(char_5));
+    case 31:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(13, HIGH);
       break;
-    case '6':
-      print_pattern(char_6, sizeof(char_6));
+    case 32:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(3, HIGH);
       break;
-    case '7':
-      print_pattern(char_7, sizeof(char_7));
+    case 33:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(4, HIGH);
       break;
-    case '8':
-      print_pattern(char_8, sizeof(char_8));
+    case 34:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(10, HIGH);
       break;
-    case '9':
-      print_pattern(char_9, sizeof(char_9));
-      break;
-    case '+':
-      print_pattern(char_plus, sizeof(char_plus));
-      break;
-    case '#':
-      print_pattern(char_swastik, sizeof(char_swastik));
+    case 35:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(6, HIGH);
       break;
     default:
       break;
   }
 }
 
-void print_pattern(int *arr, int size)
+void off_led(int ledNumber)
 {
-  //Serial.println(size);
-  //Serial.println(ceil(size/2.0));
-  for(int i = 0; i<70; i++)
+  switch (ledNumber)
   {
-    // size/2 gives the actual length of the array
-    for(int i = 0; i<ceil(size/2.0); i++)
-    {
-     glow_led(arr[i]);
-     delayMicroseconds(500);
-     off_led(arr[i]);
-     delayMicroseconds(1);
-    }  
+    case 1:
+#ifdef debug
+      Serial.print("Case : ");
+      Serial.println(ledNumber);
+#endif
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, LOW);
+      break;
+    case 2:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, LOW);
+      break;
+    case 3:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, LOW);
+      break;
+    case 4:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, LOW);
+      break;
+    case 5:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, LOW);
+      break;
+    case 6:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, LOW);
+      break;
+    case 7:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, LOW);
+      break;
+    case 8:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, LOW);
+      break;
+    case 9:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, LOW);
+      break;
+    case 10:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, LOW);
+      break;
+    case 11:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, LOW);
+      break;
+    case 12:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, LOW);
+      break;
+    case 13:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, LOW);
+      break;
+    case 14:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, LOW);
+      break;
+    case 15:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, LOW);
+      break;
+    case 16:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, LOW);
+      break;
+    case 17:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, LOW);
+      break;
+    case 18:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, LOW);
+      break;
+    case 19:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, LOW);
+      break;
+    case 20:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, LOW);
+      break;
+    case 21:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, LOW);
+      break;
+    case 22:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, LOW);
+      break;
+    case 23:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, LOW);
+      break;
+    case 24:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, LOW);
+      break;
+    case 25:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, LOW);
+      break;
+    case 26:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, LOW);
+      break;
+    case 27:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, LOW);
+      break;
+    case 28:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, LOW);
+      break;
+    case 29:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, LOW);
+      break;
+    case 30:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, LOW);
+      break;
+    case 31:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(13, LOW);
+      break;
+    case 32:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(3, LOW);
+      break;
+    case 33:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(4, LOW);
+      break;
+    case 34:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(10, LOW);
+      break;
+    case 35:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(6, LOW);
+      break;
+    default:
+      break;
   }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+void glow_led_scroll(int ledNumber)
+{
+  switch (ledNumber)
+  {
+    case 6:
+#ifdef debug
+      Serial.print("Case : ");
+      Serial.println(ledNumber);
+#endif
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, HIGH);
+      break;
+    case 7:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, HIGH);
+      break;
+    case 8:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, HIGH);
+      break;
+    case 9:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, HIGH);
+      break;
+    case 10:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, HIGH);
+      break;
+    case 21:
+      digitalWrite(9, HIGH);
+      //off_all();
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, HIGH);
+      break;
+    case 22:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, HIGH);
+      break;
+    case 23:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, HIGH);
+      break;
+    case 24:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, HIGH);
+      break;
+    case 25:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, HIGH);
+      break;
+    case 36:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, HIGH);
+      break;
+    case 37:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, HIGH);
+      break;
+    case 38:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, HIGH);
+      break;
+    case 39:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, HIGH);
+      break;
+    case 40:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, HIGH);
+      break;
+    case 51:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, HIGH);
+      break;
+    case 52:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, HIGH);
+      break;
+    case 53:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, HIGH);
+      break;
+    case 54:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, HIGH);
+      break;
+    case 55:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, HIGH);
+      break;
+    case 66:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, HIGH);
+      break;
+    case 67:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, HIGH);
+      break;
+    case 68:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, HIGH);
+      break;
+    case 69:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, HIGH);
+      break;
+    case 70:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, HIGH);
+      break;
+    case 81:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, HIGH);
+      break;
+    case 82:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, HIGH);
+      break;
+    case 83:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, HIGH);
+      break;
+    case 84:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, HIGH);
+      break;
+    case 85:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, HIGH);
+      break;
+    case 96:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(13, HIGH);
+      break;
+    case 97:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(3, HIGH);
+      break;
+    case 98:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(4, HIGH);
+      break;
+    case 99:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(10, HIGH);
+      break;
+    case 100:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(6, HIGH);
+      break;
+    default:
+      break;
+  }
+}
+
+void off_led_scroll(int ledNumber)
+{
+  switch (ledNumber)
+  {
+    case 6:
+#ifdef debug
+      Serial.print("Case : ");
+      Serial.println(ledNumber);
+#endif
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, LOW);
+      break;
+    case 7:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, LOW);
+      break;
+    case 8:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, LOW);
+      break;
+    case 9:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, LOW);
+      break;
+    case 10:
+      digitalWrite(9, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, LOW);
+      break;
+    case 21:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, LOW);
+      break;
+    case 22:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, LOW);
+      break;
+    case 23:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, LOW);
+      break;
+    case 24:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, LOW);
+      break;
+    case 25:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, LOW);
+      break;
+    case 36:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, LOW);
+      break;
+    case 37:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, LOW);
+      break;
+    case 38:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, LOW);
+      break;
+    case 39:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, LOW);
+      break;
+    case 40:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, LOW);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, LOW);
+      break;
+    case 51:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, LOW);
+      break;
+    case 52:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, LOW);
+      break;
+    case 53:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, LOW);
+      break;
+    case 54:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, LOW);
+      break;
+    case 55:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, LOW);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, LOW);
+      break;
+    case 66:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, LOW);
+      break;
+    case 67:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, LOW);
+      break;
+    case 68:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, LOW);
+      break;
+    case 69:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, LOW);
+      break;
+    case 70:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, LOW);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, LOW);
+      break;
+    case 81:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(13, LOW);
+      break;
+    case 82:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(3, LOW);
+      break;
+    case 83:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(4, LOW);
+      break;
+    case 84:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(10, LOW);
+      break;
+    case 85:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, LOW);
+      digitalWrite(2, HIGH);
+
+      digitalWrite(6, LOW);
+      break;
+    case 96:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(13, LOW);
+      break;
+    case 97:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(3, LOW);
+      break;
+    case 98:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(4, LOW);
+      break;
+    case 99:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(10, LOW);
+      break;
+    case 100:
+      digitalWrite(9, HIGH);
+      digitalWrite(11, HIGH);
+      digitalWrite(8, HIGH);
+      digitalWrite(5, HIGH);
+      digitalWrite(12, HIGH);
+      digitalWrite(7, HIGH);
+      digitalWrite(2, LOW);
+
+      digitalWrite(6, LOW);
+      break;
+    default:
+      break;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+void print_pattern(int print_array[7][5])
+{
+  int temp[7][5] = {
+    { 1,  2,  3,  4,  5},
+    { 6,  7,  8,  9, 10},
+    {11, 12, 13, 14, 15},
+    {16, 17, 18, 19, 20},
+    {21, 22, 23, 24, 25},
+    {26, 27, 28, 29, 30},
+    {31, 32, 33, 34, 35}
+  };
+  for (int k = 0; k < 30; k++)
+  {
+    for (int i = 0; i < 7; i++)
+    {
+      for (int j = 0; j < 5; j++)
+      {
+        if(print_array[i][j] == 49)
+        {
+          glow_led(temp[i][j]);
+          delayMicroseconds(1000);
+          off_led(temp[i][j]);
+          delayMicroseconds(1);
+        }
+      }
+    }
+  }
+}
+
+void disp_char(char c)
+{
+  int temp[7][5] = {
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0}
+  };
+  char x[35];
+  byte count = 0;
+  switch (c)
+  {
+    case 'A':
+      count = 0;
+      break;
+    case 'B':
+      count = 1;
+      break;
+    case 'C':
+      count = 2;
+      break;
+    case 'D':
+      count = 3;
+      break;
+    case 'E':
+      count = 4;
+      break;
+    case 'F':
+      count = 5;
+      break;
+    case 'G':
+      count = 6;
+      break;
+    case 'H':
+      count = 7;
+      break;
+    case 'I':
+      count = 8;
+      break;
+    case 'J':
+      count = 9;
+      break;
+    case 'K':
+      count = 10;
+      break;
+    case 'L':
+      count = 11;
+      break;
+    case 'M':
+      count = 12;
+      break;
+    case 'N':
+      count = 13;
+      break;
+    case 'O':
+      count = 14;
+      break;
+    case 'P':
+      count = 15;
+      break;
+    case 'Q':
+      count = 16;
+      break;
+    case 'R':
+      count = 17;
+      break;
+    case 'S':
+      count = 18;
+      break;
+    case 'T':
+      count = 19;
+      break;
+    case 'U':
+      count = 20;
+      break;
+    case 'V':
+      count = 21;
+      break;
+    case 'W':
+      count = 22;
+      break;
+    case 'X':
+      count = 23;
+      break;
+    case 'Y':
+      count = 24;
+      break;
+    case 'Z':
+      count = 25;
+      break;
+    case '0':
+      count = 26;
+      break;
+    case '1':
+      count = 27;
+      break;
+    case '2':
+      count = 28;
+      break;
+    case '3':
+      count = 29;
+      break;
+    case '4':
+      count = 30;
+      break;
+    case '5':
+      count = 31;
+      break;
+    case '6':
+      count = 32;
+      break;
+    case '7':
+      count = 33;
+      break;
+    case '8':
+      count = 34;
+      break;
+    case '9':
+      count = 35;
+      break;
+    default:
+      break;
+  }
+  strcpy_P(x, (char *)pgm_read_word(&(data_table[count])));
+  count = 0;
+  for (int i = 0; i < 7; i++)
+  {
+    for (int j = 0; j < 5; j++)
+    {
+      temp[i][j] = x[count];
+      count++;
+    }
+  }
+  count = 0;
+  print_pattern(temp);
 }
 
 void disp_custom_char(int *arr, int size)
 {
-  //Serial.println(n);
-  for(int i = 0; i<70; i++)
+  for (int i = 0; i < 70; i++)
   {
-    for(int i = 0; i<size; i++)
+    for (int i = 0; i < size; i++)
     {
-     //Serial.println(arr[i]);
-     glow_led(arr[i]);
-     delayMicroseconds(500);
-     off_led(arr[i]);
-     delayMicroseconds(1);
-    }  
+      glow_led(arr[i]);
+      delayMicroseconds(500);
+      off_led(arr[i]);
+      delayMicroseconds(1);
+    }
   }
 }
 
 void glow_matrix_scroll(char c)
 {
-  
+
   int count = 0;
   int scroll = 0;
   int scroll_var = 0;
-  int second_iteration_var=0;
-  int glow_map[7][15] = { 
+  int second_iteration_var = 0;
+  int glow_map[7][15] = {
     {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
     {16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30},
     {31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45},
@@ -2264,98 +2304,98 @@ void glow_matrix_scroll(char c)
     {76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90},
     {91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105}
   };
-  
+
   //xvar[0] = 'j';
 
-  switch(c)
+  switch (c)
   {
-	  case 'X':
-		while (scroll < 11)
-  {
-    while (count <= 10)
-    {
-      for (int i = 0; i < 7; i++)
+    case 'X':
+      while (scroll < 11)
       {
-        for (int j = scroll_var; j <= (scroll_var+4); j++)
+        while (count <= 10)
         {
-          if (J[i][second_iteration_var] == 1)
+          for (int i = 0; i < 7; i++)
           {
-            glow_led_scroll(glow_map[i][j]);
-            delayMicroseconds(1500);
-            off_led_scroll(glow_map[i][j]);
-            delayMicroseconds(1);
-            //Serial.print(glow_map[i][j]);
-            //Serial.print("+++");
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
+            {
+              if (J[i][second_iteration_var] == 1)
+              {
+                glow_led_scroll(glow_map[i][j]);
+                delayMicroseconds(1500);
+                off_led_scroll(glow_map[i][j]);
+                delayMicroseconds(1);
+                //Serial.print(glow_map[i][j]);
+                //Serial.print("+++");
+              }
+              // Serial.print(j);
+              //Serial.print("---");
+              second_iteration_var ++;
+              //if(second_iteration_var > 4) second_iteration_var=0;
+            }
+            //Serial.println();
+            second_iteration_var = 0;
           }
-			// Serial.print(j);
-            //Serial.print("---");
-          second_iteration_var ++;
-          //if(second_iteration_var > 4) second_iteration_var=0;
+          count++;
         }
-         //Serial.println();
-        second_iteration_var = 0;
+        scroll++;
+        count = 0;
+        scroll_var++;
+        //Serial.println(scroll_var);
       }
-      count++;
-    }
-    scroll++;
-    count=0;
-    scroll_var++;
-    //Serial.println(scroll_var);
-  }
-  break;
-  case 'Y':
-	while (scroll < 11)
-  {
-    while (count <= 10)
-    {
-      for (int i = 0; i < 7; i++)
+      break;
+    case 'Y':
+      while (scroll < 11)
       {
-        for (int j = scroll_var; j <= (scroll_var+4); j++)
+        while (count <= 10)
         {
-          if (T[i][second_iteration_var] == 1)
+          for (int i = 0; i < 7; i++)
           {
-            glow_led_scroll(glow_map[i][j]);
-            delayMicroseconds(1500);
-            off_led_scroll(glow_map[i][j]);
-            delayMicroseconds(1);
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
+            {
+              if (T[i][second_iteration_var] == 1)
+              {
+                glow_led_scroll(glow_map[i][j]);
+                delayMicroseconds(1500);
+                off_led_scroll(glow_map[i][j]);
+                delayMicroseconds(1);
+              }
+              second_iteration_var ++;
+            }
+            second_iteration_var = 0;
           }
-          second_iteration_var ++;
+          count++;
         }
-        second_iteration_var = 0;
+        scroll++;
+        count = 0;
+        scroll_var++;
       }
-      count++;
-    }
-    scroll++;
-    count=0;
-    scroll_var++;
+      break;
+    default:
+      break;
   }
-  break;
-  default:
-	break;
-  }
-  
+
   //Serial.println("Exit Function");
-  
-  
+
+
 }
 
 void disp_char_scroll(char c)
 {
-	int count = 0;
-	int scroll = 0;
-	int scroll_var = 0;
-	int second_iteration_var=0;
-	int glow_map[7][15] = { 
-		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
-		{16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30},
-		{31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45},
-		{46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60},
-		{61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75},
-		{76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90},
-		{91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105}
-	  };
-	switch (c)
-	{
+  int count = 0;
+  int scroll = 0;
+  int scroll_var = 0;
+  int second_iteration_var = 0;
+  int glow_map[7][15] = {
+    {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15},
+    {16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30},
+    {31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45},
+    {46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60},
+    {61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75},
+    {76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90},
+    {91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105}
+  };
+  switch (c)
+  {
 
     case 'A':
       while (scroll < 11)
@@ -2364,7 +2404,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (A[i][second_iteration_var] == 1)
               {
@@ -2380,10 +2420,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'B':
       while (scroll < 11)
@@ -2392,7 +2432,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (B[i][second_iteration_var] == 1)
               {
@@ -2408,10 +2448,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'C':
       while (scroll < 11)
@@ -2420,7 +2460,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (C[i][second_iteration_var] == 1)
               {
@@ -2436,10 +2476,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'D':
       while (scroll < 11)
@@ -2448,7 +2488,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (D[i][second_iteration_var] == 1)
               {
@@ -2464,10 +2504,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'E':
       while (scroll < 11)
@@ -2476,7 +2516,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (E[i][second_iteration_var] == 1)
               {
@@ -2492,10 +2532,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'F':
       while (scroll < 11)
@@ -2504,7 +2544,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (F[i][second_iteration_var] == 1)
               {
@@ -2520,10 +2560,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'G':
       while (scroll < 11)
@@ -2532,7 +2572,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (G[i][second_iteration_var] == 1)
               {
@@ -2548,10 +2588,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'H':
       while (scroll < 11)
@@ -2560,7 +2600,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (H[i][second_iteration_var] == 1)
               {
@@ -2576,10 +2616,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'K':
       while (scroll < 11)
@@ -2588,7 +2628,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (K[i][second_iteration_var] == 1)
               {
@@ -2604,10 +2644,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'L':
       while (scroll < 11)
@@ -2616,7 +2656,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (L[i][second_iteration_var] == 1)
               {
@@ -2632,10 +2672,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'M':
       while (scroll < 11)
@@ -2644,7 +2684,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (M[i][second_iteration_var] == 1)
               {
@@ -2660,10 +2700,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'N':
       while (scroll < 11)
@@ -2672,7 +2712,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (N[i][second_iteration_var] == 1)
               {
@@ -2688,10 +2728,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'O':
       while (scroll < 11)
@@ -2700,7 +2740,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (O[i][second_iteration_var] == 1)
               {
@@ -2716,10 +2756,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'P':
       while (scroll < 11)
@@ -2728,7 +2768,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (P[i][second_iteration_var] == 1)
               {
@@ -2744,10 +2784,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'Q':
       while (scroll < 11)
@@ -2756,7 +2796,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (Q[i][second_iteration_var] == 1)
               {
@@ -2772,10 +2812,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'R':
       while (scroll < 11)
@@ -2784,7 +2824,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (R[i][second_iteration_var] == 1)
               {
@@ -2800,10 +2840,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'S':
       while (scroll < 11)
@@ -2812,7 +2852,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (S[i][second_iteration_var] == 1)
               {
@@ -2828,10 +2868,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'V':
       while (scroll < 11)
@@ -2840,7 +2880,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (V[i][second_iteration_var] == 1)
               {
@@ -2856,10 +2896,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'W':
       while (scroll < 11)
@@ -2868,7 +2908,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (W[i][second_iteration_var] == 1)
               {
@@ -2884,10 +2924,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'X':
       while (scroll < 11)
@@ -2896,7 +2936,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (X[i][second_iteration_var] == 1)
               {
@@ -2912,10 +2952,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'Y':
       while (scroll < 11)
@@ -2924,7 +2964,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (Y[i][second_iteration_var] == 1)
               {
@@ -2940,10 +2980,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case 'Z':
       while (scroll < 11)
@@ -2952,7 +2992,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (Z[i][second_iteration_var] == 1)
               {
@@ -2968,10 +3008,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case '0':
       while (scroll < 11)
@@ -2980,7 +3020,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (m_char_0[i][second_iteration_var] == 1)
               {
@@ -2996,10 +3036,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case '1':
       while (scroll < 11)
@@ -3008,7 +3048,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (m_char_1[i][second_iteration_var] == 1)
               {
@@ -3024,10 +3064,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case '2':
       while (scroll < 11)
@@ -3036,7 +3076,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (m_char_2[i][second_iteration_var] == 1)
               {
@@ -3052,10 +3092,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case '3':
       while (scroll < 11)
@@ -3064,7 +3104,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (m_char_3[i][second_iteration_var] == 1)
               {
@@ -3080,10 +3120,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case '4':
       while (scroll < 11)
@@ -3092,7 +3132,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (m_char_4[i][second_iteration_var] == 1)
               {
@@ -3108,10 +3148,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case '5':
       while (scroll < 11)
@@ -3120,7 +3160,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (m_char_5[i][second_iteration_var] == 1)
               {
@@ -3136,10 +3176,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case '6':
       while (scroll < 11)
@@ -3148,7 +3188,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (m_char_6[i][second_iteration_var] == 1)
               {
@@ -3164,10 +3204,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case '7':
       while (scroll < 11)
@@ -3176,7 +3216,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (m_char_7[i][second_iteration_var] == 1)
               {
@@ -3192,10 +3232,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case '8':
       while (scroll < 11)
@@ -3204,7 +3244,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (m_char_8[i][second_iteration_var] == 1)
               {
@@ -3220,10 +3260,10 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
+      break;
 
     case '9':
       while (scroll < 11)
@@ -3232,7 +3272,7 @@ void disp_char_scroll(char c)
         {
           for (int i = 0; i < 7; i++)
           {
-            for (int j = scroll_var; j <= (scroll_var+4); j++)
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
             {
               if (m_char_9[i][second_iteration_var] == 1)
               {
@@ -3248,120 +3288,120 @@ void disp_char_scroll(char c)
           count++;
         }
         scroll++;
-        count=0;
+        count = 0;
         scroll_var++;
       }
-    break;
-  
-		case 'J':
-			while (scroll < 11)
-			{
-				while (count <= 10)
-				{
-					for (int i = 0; i < 7; i++)
-					{
-						for (int j = scroll_var; j <= (scroll_var+4); j++)
-						{
-							if (J[i][second_iteration_var] == 1)
-							{
-								glow_led_scroll(glow_map[i][j]);
-								delayMicroseconds(1000);
-								off_led_scroll(glow_map[i][j]);
-								delayMicroseconds(1);
-							}
-							second_iteration_var ++;
-						}
-						second_iteration_var = 0;
-					}
-					count++;
-				}
-				scroll++;
-				count=0;
-				scroll_var++;
-			}
-		break;
-		case 'I':
-			while (scroll < 11)
-			{
-				while (count <= 10)
-				{
-					for (int i = 0; i < 7; i++)
-					{
-						for (int j = scroll_var; j <= (scroll_var+4); j++)
-						{
-							if (I[i][second_iteration_var] == 1)
-							{
-								glow_led_scroll(glow_map[i][j]);
-								delayMicroseconds(1000);
-								off_led_scroll(glow_map[i][j]);
-								delayMicroseconds(1);
-							}
-							second_iteration_var ++;
-						}
-						second_iteration_var = 0;
-					}
-					count++;
-				}
-				scroll++;
-				count=0;
-				scroll_var++;
-			}
-		break;
-		case 'T':
-			while (scroll < 11)
-			{
-				while (count <= 10)
-				{
-					for (int i = 0; i < 7; i++)
-					{
-						for (int j = scroll_var; j <= (scroll_var+4); j++)
-						{
-							if (T[i][second_iteration_var] == 1)
-							{
-								glow_led_scroll(glow_map[i][j]);
-								delayMicroseconds(1000);
-								off_led_scroll(glow_map[i][j]);
-								delayMicroseconds(1);
-							}
-							second_iteration_var ++;
-						}
-						second_iteration_var = 0;
-					}
-					count++;
-				}
-				scroll++;
-				count=0;
-				scroll_var++;
-			}
-		break;
-		case 'U':
-			while (scroll < 11)
-			{
-				while (count <= 10)
-				{
-					for (int i = 0; i < 7; i++)
-					{
-						for (int j = scroll_var; j <= (scroll_var+4); j++)
-						{
-							if (U[i][second_iteration_var] == 1)
-							{
-								glow_led_scroll(glow_map[i][j]);
-								delayMicroseconds(1000);
-								off_led_scroll(glow_map[i][j]);
-								delayMicroseconds(1);
-							}
-							second_iteration_var ++;
-						}
-						second_iteration_var = 0;
-					}
-					count++;
-				}
-				scroll++;
-				count=0;
-				scroll_var++;
-			}
-		break;
-		default:
-			break;
-	}
+      break;
+
+    case 'J':
+      while (scroll < 11)
+      {
+        while (count <= 10)
+        {
+          for (int i = 0; i < 7; i++)
+          {
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
+            {
+              if (J[i][second_iteration_var] == 1)
+              {
+                glow_led_scroll(glow_map[i][j]);
+                delayMicroseconds(1000);
+                off_led_scroll(glow_map[i][j]);
+                delayMicroseconds(1);
+              }
+              second_iteration_var ++;
+            }
+            second_iteration_var = 0;
+          }
+          count++;
+        }
+        scroll++;
+        count = 0;
+        scroll_var++;
+      }
+      break;
+    case 'I':
+      while (scroll < 11)
+      {
+        while (count <= 10)
+        {
+          for (int i = 0; i < 7; i++)
+          {
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
+            {
+              if (I[i][second_iteration_var] == 1)
+              {
+                glow_led_scroll(glow_map[i][j]);
+                delayMicroseconds(1000);
+                off_led_scroll(glow_map[i][j]);
+                delayMicroseconds(1);
+              }
+              second_iteration_var ++;
+            }
+            second_iteration_var = 0;
+          }
+          count++;
+        }
+        scroll++;
+        count = 0;
+        scroll_var++;
+      }
+      break;
+    case 'T':
+      while (scroll < 11)
+      {
+        while (count <= 10)
+        {
+          for (int i = 0; i < 7; i++)
+          {
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
+            {
+              if (T[i][second_iteration_var] == 1)
+              {
+                glow_led_scroll(glow_map[i][j]);
+                delayMicroseconds(1000);
+                off_led_scroll(glow_map[i][j]);
+                delayMicroseconds(1);
+              }
+              second_iteration_var ++;
+            }
+            second_iteration_var = 0;
+          }
+          count++;
+        }
+        scroll++;
+        count = 0;
+        scroll_var++;
+      }
+      break;
+    case 'U':
+      while (scroll < 11)
+      {
+        while (count <= 10)
+        {
+          for (int i = 0; i < 7; i++)
+          {
+            for (int j = scroll_var; j <= (scroll_var + 4); j++)
+            {
+              if (U[i][second_iteration_var] == 1)
+              {
+                glow_led_scroll(glow_map[i][j]);
+                delayMicroseconds(1000);
+                off_led_scroll(glow_map[i][j]);
+                delayMicroseconds(1);
+              }
+              second_iteration_var ++;
+            }
+            second_iteration_var = 0;
+          }
+          count++;
+        }
+        scroll++;
+        count = 0;
+        scroll_var++;
+      }
+      break;
+    default:
+      break;
+  }
 }
